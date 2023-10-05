@@ -67,8 +67,15 @@ module base()
         {
           rotate([ 0, 0, 180 ])
           rotate_extrude( angle = 90, $fn = 96 )
-          translate([ phone_edge_curve, 0 ]) //curve and z height      
-            square([ phone_edge_width, phone_height+case_height], center = true );
+          translate([ phone_edge_curve, -phone_height/2 ]) //curve and z height      
+            square([ phone_edge_width, phone_height*2+case_height], center = true );
+
+          color("red")
+          translate([ phone_height, phone_height, 0 ])
+          rotate([ 0, 0, 195 ])
+          rotate_extrude( angle = 60, $fn = 96 )
+          translate([ phone_edge_curve, -case_height+2.65 ]) //curve and z height      
+            square([ phone_edge_width*2, phone_height], center = true );
         }
       }
 
@@ -78,14 +85,14 @@ module base()
         {
           rotate([ 0, 0, 180 ])
           rotate_extrude( angle = 90, $fn = 96 )
-          translate([ phone_edge_curve, 0 ]) //curve and z height      
-            square([ phone_edge_width, phone_height+case_height], center = true );
+          translate([ phone_edge_curve, -phone_height/2 ]) //curve and z height      
+            square([ phone_edge_width, phone_height*2+case_height], center = true );
           
           color("red")
           translate([ phone_height, phone_height, 0 ])
-          rotate([ 0, 0, 180 ])
-          rotate_extrude( angle = 90, $fn = 96 )
-          translate([ phone_edge_curve, -8 ]) //curve and z height      
+          rotate([ 0, 0, 195 ])
+          rotate_extrude( angle = 60, $fn = 96 )
+          translate([ phone_edge_curve, -case_height+2.65 ]) //curve and z height      
             square([ phone_edge_width*2, phone_height], center = true );
         }
       }
@@ -187,6 +194,7 @@ module base()
           }
         }
       }
+
     }
     else {
       translate([ -phone_width/2+screw_width_min, -distance_to_lens/2-binoc_base_width/2+screw_width_min, 0 ]) 
@@ -209,6 +217,14 @@ module base()
       }
     }
   }
+    //Round the corners
+      translate([ -phone_width/2+phone_corner, -phone_depth/2+phone_corner, -case_height/2 ])
+      {
+        rotate([ 0, 0, 180 ])
+        #rotate_extrude( angle = 90, $fn = 96 )
+        translate([ phone_edge_curve, 0 ]) //curve and z height      
+          square([ phone_edge_width, phone_height+case_height], center = true );
+      }
 }
 
 module eye_piece()
@@ -264,9 +280,9 @@ module eye_piece()
   }
 }
             
-base();
-/*
+//base();
+//*
 rotate([ 0, 0, 0 ])
     translate([ -phone_width/2+distance_to_lens+1.6, -phone_depth/2+distance_to_lens+1.6, phone_height/2 ])
 eye_piece();
-*/
+//*/

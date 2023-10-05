@@ -23,7 +23,7 @@ distance_to_lens=24.8;
 binoc_base_width=8;
 binoc_base_height=2;
 binoc_eyepiece_dia=34;
-binoc_eyepiece_radius_inside=12;
+binoc_eyepiece_radius_inside=17;
 binoc_width=71;
 binoc_eyepiece_height=20.5-phone_height/2;
 
@@ -32,6 +32,7 @@ screw_width_min=1.6;
 screw_head_height=1.67;
 screw_height=phone_height;
 
+orientaion="top";
 
 module base()
 {
@@ -70,7 +71,6 @@ module base()
           translate([ phone_edge_curve, -phone_height/2 ]) //curve and z height      
             square([ phone_edge_width, phone_height*2+case_height], center = true );
 
-          color("red")
           translate([ phone_height, phone_height, 0 ])
           rotate([ 0, 0, 195 ])
           rotate_extrude( angle = 60, $fn = 96 )
@@ -104,52 +104,8 @@ module base()
    
     //remove the core
     translate([ -phone_width/2+distance_to_lens+screw_width_min, -phone_depth/2+distance_to_lens+screw_width_min, -phone_height/2 ])
-    cylinder( h = phone_height*2, r = binoc_eyepiece_radius_inside, center = true );
+    cylinder( h = phone_height*2, r = binoc_eyepiece_radius_inside-5, center = true );
 
-/*
-    //Round the corners
-      translate([ -phone_width/2+phone_corner, -phone_depth/2+phone_corner, 0 ])
-    {
-      rotate([ 0, 0, 180 ])
-      rotate_extrude( angle = 90, $fn = 96 )
-      translate([ phone_edge_curve, 0 ]) //curve and z height      
-        square([ phone_edge_width, phone_height], center = true );
-    }
-
-   mirror([1,0,0])
-   { 
-      translate([ -phone_width/2+phone_corner, -phone_depth/2+phone_corner, 0 ])
-    {
-      rotate([ 0, 0, 180 ])
-      rotate_extrude( angle = 90, $fn = 96 )
-      translate([ phone_edge_curve, 0 ]) //curve and z height      
-        square([ phone_edge_width, phone_height], center = true );
-    }
-   }
-/*
-   mirror([0,1,0])
-   { 
-      translate([ -phone_width/2+phone_corner, -phone_depth/2+phone_corner, 0 ])
-    {
-      rotate([ 0, 0, 180 ])
-      #rotate_extrude( angle = 90, $fn = 96 )
-      translate([ phone_edge_curve, 0 ]) //curve and z height      
-        square([ phone_edge_width, phone_height], center = true );
-    }
-   }
-
-   mirror([1,1,0])
-   { 
-      translate([ -phone_depth/2+phone_corner, -phone_width/2+phone_corner, 0 ])
-    {
-      rotate([ 0, 0, 180 ])
-      #rotate_extrude( angle = 90, $fn = 96 )
-      translate([ phone_edge_curve, 0 ]) //curve and z height      
-        square([ phone_edge_width, phone_height], center = true );
-    }
-   }
- */   
-    orientaion="top";
     //Screw holes
     if (orientaion=="top") {
       translate([ -phone_width/2+screw_width_min, distance_to_lens/2+binoc_base_width/2+screw_width_min/2, 0 ]) 
@@ -280,7 +236,7 @@ module eye_piece()
   }
 }
             
-//base();
+base();
 //*
 rotate([ 0, 0, 0 ])
     translate([ -phone_width/2+distance_to_lens+1.6, -phone_depth/2+distance_to_lens+1.6, phone_height/2 ])

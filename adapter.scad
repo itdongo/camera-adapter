@@ -6,7 +6,7 @@ include <nutsnbolts/materials.scad>;
 testvar=7;
 clip_angle  = 20;
 clip_radius = 154;
-clip_size = 2;
+clip_size = 1;
 
 phone_width=135;
 phone_depth=68;
@@ -23,7 +23,7 @@ distance_to_lens=24.8;
 binoc_base_width=8;
 binoc_base_height=2;
 binoc_eyepiece_dia=34;
-binoc_eyepiece_radius_inside=17;
+binoc_eyepiece_radius_inside=17.5;
 binoc_width=71;
 binoc_eyepiece_height=20.5-phone_height/2;
 
@@ -112,38 +112,38 @@ module base()
       {
         rotate([ 180, 0, 0, ])
         {
-          translate([ distance_to_lens, binoc_base_width+.8, .7 ])
+          translate([ distance_to_lens, binoc_base_width/2-.2, .67 ])
           {
             rotate([ 180, 0, 0, ])
             {
               cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min, center = true );
-              cylinder( h = screw_height*2, r = screw_width_min, center = true );
+              cylinder( h = screw_height*4, r = screw_width_min, center = true );
               translate([binoc_width, 0, 0]) {
                 cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min, center = true );
                 cylinder( h = screw_height*2, r = screw_width_min, center = true );
               }
             }
           }
-          translate([ binoc_base_width+1.3, distance_to_lens-4, 1 ])
+          translate([ binoc_base_width/2+.3, distance_to_lens-4, 1.1 ])
           {
             rotate([ 180, 0, 0, ])
             {
-              cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min );
+              #cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min );
               cylinder( h = screw_height*2, r = screw_width_min );
-              translate([binoc_width, 0, -1]) {
+              translate([binoc_width, 0, -.6]) {
                 cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min );
                 cylinder( h = screw_height*2, r = screw_width_min );
               }
             }
           }
-          translate([ camera_notch_width+binoc_base_width/2-2.7, distance_to_lens-4, 1.5 ])
+          translate([ camera_notch_width+phone_edge_width+.3, distance_to_lens-4, 1.51 ])
           {
             rotate([ 180, 0, 0, ])
             {
               cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min );
-              #cylinder( h = screw_height*2, r = screw_width_min );
-              translate([binoc_width, 0, 0]) {
-                cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min );
+              cylinder( h = screw_height*2, r = screw_width_min );
+              translate([binoc_width, 0, 0 ]) {
+                #cylinder( h = screw_head_height, r1 = screw_width_max, r2 = screw_width_min );
                 cylinder( h = screw_height*2, r = screw_width_min );
               }
             }
@@ -191,14 +191,14 @@ module eye_piece()
     {
       //Eye piece reference
       //Create the eye piece   
-      rotate_extrude( angle = 180, $fn = 96 )
+      rotate_extrude( angle = 360, $fn = 96 )
       translate( [binoc_eyepiece_radius_inside, binoc_base_width ] )       
       translate( [0, -binoc_base_width] )
         square([ binoc_base_width, binoc_eyepiece_height ] );
     
       //Add the eye piece clip
       translate([ 0, 0, binoc_eyepiece_height ])
-      rotate_extrude( angle = 180, $fn = 96 )
+      rotate_extrude( angle = 380, $fn = 96 )
       translate( [binoc_eyepiece_radius_inside, -clip_size] )
       rotate([ 0, 0, 90 ])
         circle( r = clip_size, $fn = 3);
@@ -236,7 +236,7 @@ module eye_piece()
   }
 }
             
-base();
+//base();
 //*
 rotate([ 0, 0, 0 ])
     translate([ -phone_width/2+distance_to_lens+1.6, -phone_depth/2+distance_to_lens+1.6, phone_height/2 ])
